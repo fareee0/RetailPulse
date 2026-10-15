@@ -1,0 +1,27 @@
+{
+  "prophet": {
+    "model": "Prophet",
+    "mae": 12675.17,
+    "rmse": 21553.1,
+    "mape_pct": 29.64,
+    "smape_pct": 52.64
+  },
+  "lstm": {
+    "model": "LSTM_SequenceModel",
+    "mae": 12933.4,
+    "rmse": 22661.22,
+    "mape_pct": 31.62,
+    "smape_pct": 49.39
+  },
+  "hybrid": {
+    "model": "Hybrid_Ensemble",
+    "mae": 12312.48,
+    "rmse": 21640.58,
+    "mape_pct": 29.09,
+    "smape_pct": 52.17,
+    "prophet_weight": 0.5,
+    "lstm_weight": 0.5
+  },
+  "improvement_over_prophet_mae_pct": 2.86,
+  "improvement_over_lstm_mae_pct": 4.8
+}

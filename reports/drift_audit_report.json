@@ -1,0 +1,111 @@
+{
+  "dataset_drift_detected": true,
+  "drift_share_pct": 37.5,
+  "drifted_features_count": 3,
+  "total_features_evaluated": 8,
+  "drifted_features": [
+    "Monetary",
+    "AvgOrderValue",
+    "AvgBasketSize"
+  ],
+  "psi_threshold": 0.25,
+  "ks_alpha": 0.05,
+  "features": {
+    "Recency": {
+      "psi": 0.0115,
+      "psi_drift": false,
+      "ks_statistic": 0.0322,
+      "ks_pvalue": 0.19491,
+      "ks_drift": false,
+      "status": "STABLE",
+      "ref_mean": 205.16,
+      "cur_mean": 212.23,
+      "ref_std": 174.43,
+      "cur_std": 176.19
+    },
+    "Frequency": {
+      "psi": 0.0038,
+      "psi_drift": false,
+      "ks_statistic": 0.0138,
+      "ks_pvalue": 0.981489,
+      "ks_drift": false,
+      "status": "STABLE",
+      "ref_mean": 5.74,
+      "cur_mean": 5.75,
+      "ref_std": 12.01,
+      "cur_std": 10.07
+    },
+    "Monetary": {
+      "psi": 0.0162,
+      "psi_drift": false,
+      "ks_statistic": 0.059,
+      "ks_pvalue": 0.000844,
+      "ks_drift": true,
+      "status": "MODERATE DRIFT",
+      "ref_mean": 2683.88,
+      "cur_mean": 2530.56,
+      "ref_std": 11545.05,
+      "cur_std": 13677.47
+    },
+    "TenureDays": {
+      "psi": 0.0126,
+      "psi_drift": false,
+      "ks_statistic": 0.0208,
+      "ks_pvalue": 0.713256,
+      "ks_drift": false,
+      "status": "STABLE",
+      "ref_mean": 430.23,
+      "cur_mean": 435.38,
+      "ref_std": 181.0,
+      "cur_std": 179.28
+    },
+    "AvgOrderValue": {
+      "psi": 0.071,
+      "psi_drift": false,
+      "ks_statistic": 0.107,
+      "ks_pvalue": 0.0,
+      "ks_drift": true,
+      "status": "MODERATE DRIFT",
+      "ref_mean": 391.92,
+      "cur_mean": 316.54,
+      "ref_std": 586.13,
+      "cur_std": 399.82
+    },
+    "AvgBasketSize": {
+      "psi": 0.0303,
+      "psi_drift": false,
+      "ks_statistic": 0.0778,
+      "ks_pvalue": 3e-06,
+      "ks_drift": true,
+      "status": "MODERATE DRIFT",
+      "ref_mean": 258.21,
+      "cur_mean": 203.17,
+      "ref_std": 1639.01,
+      "cur_std": 513.07
+    },
+    "OrdersLast30d": {
+      "psi": 0.0016,
+      "psi_drift": false,
+      "ks_statistic": 0.0151,
+      "ks_pvalue": 0.958479,
+      "ks_drift": false,
+      "status": "STABLE",
+      "ref_mean": 0.26,
+      "cur_mean": 0.23,
+      "ref_std": 0.75,
+      "cur_std": 0.64
+    },
+    "SpendLast30d": {
+      "psi": 0.0024,
+      "psi_drift": false,
+      "ks_statistic": 0.0278,
+      "ks_pvalue": 0.351439,
+      "ks_drift": false,
+      "status": "STABLE",
+      "ref_mean": 127.48,
+      "cur_mean": 96.11,
+      "ref_std": 847.52,
+      "cur_std": 548.58
+    }
+  }
+}

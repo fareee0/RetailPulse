@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Data files (raw datasets, large CSVs, SQLite databases)
+data/raw/
+*.xlsx
+*.zip
+data/processed/*.csv
+*.db
+*.sqlite3
+
+# Large local databases
+data/retailpulse.db
+mlflow.db
+mlruns/
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/*.log
+*.log
+
+# Keep processed parquets & directory structures
+!data/processed/.gitkeep
+!data/raw/.gitkeep

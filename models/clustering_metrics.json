@@ -1,0 +1,111 @@
+{
+  "k": 3,
+  "silhouette_score": 0.2839,
+  "davies_bouldin_score": 1.246,
+  "calinski_harabasz_score": 59.34,
+  "inertia": 248.99,
+  "pca_variance_ratio": [
+    0.3965,
+    0.3194
+  ],
+  "k_evaluation": {
+    "optimal_k": 4,
+    "inertias": {
+      "2": 334.27,
+      "3": 248.99,
+      "4": 173.43,
+      "5": 151.2,
+      "6": 134.98,
+      "7": 120.28,
+      "8": 105.83
+    },
+    "silhouettes": {
+      "2": 0.2755,
+      "3": 0.2839,
+      "4": 0.3341,
+      "5": 0.3312,
+      "6": 0.3307,
+      "7": 0.2888,
+      "8": 0.2965
+    },
+    "davies_scores": {
+      "2": 1.5657,
+      "3": 1.246,
+      "4": 0.9516,
+      "5": 1.0694,
+      "6": 0.9966,
+      "7": 1.0213,
+      "8": 0.9752
+    }
+  },
+  "cluster_profiles": [
+    {
+      "cluster_id": 0,
+      "size": 44,
+      "pct_of_customers": 29.33,
+      "avg_recency_days": 162.2,
+      "avg_frequency_orders": 11.0,
+      "avg_monetary_gbp": 623.35,
+      "avg_aov_gbp": 98.63,
+      "dominant_rfm_segment": "Loyal Customers"
+    },
+    {
+      "cluster_id": 1,
+      "size": 61,
+      "pct_of_customers": 40.67,
+      "avg_recency_days": 215.3,
+      "avg_frequency_orders": 2.3,
+      "avg_monetary_gbp": 624.34,
+      "avg_aov_gbp": 113.74,
+      "dominant_rfm_segment": "New / Promising"
+    },
+    {
+      "cluster_id": 2,
+      "size": 45,
+      "pct_of_customers": 30.0,
+      "avg_recency_days": 235.5,
+      "avg_frequency_orders": 4.4,
+      "avg_monetary_gbp": 86.88,
+      "avg_aov_gbp": 112.17,
+      "dominant_rfm_segment": "Potential Loyalists"
+    }
+  ],
+  "cross_tabulation": {
+    "0": {
+      "About to Sleep": 0,
+      "At Risk": 13,
+      "Can't Lose Them": 0,
+      "Champions": 8,
+      "Hibernating / Lost": 0,
+      "Loyal Customers": 15,
+      "Need Attention": 0,
+      "New / Promising": 0,
+      "Potential Loyalists": 7,
+      "Standard Customers": 1
+    },
+    "1": {
+      "About to Sleep": 11,
+      "At Risk": 5,
+      "Can't Lose Them": 0,
+      "Champions": 0,
+      "Hibernating / Lost": 2,
+      "Loyal Customers": 7,
+      "Need Attention": 10,
+      "New / Promising": 17,
+      "Potential Loyalists": 0,
+      "Standard Customers": 9
+    },
+    "2": {
+      "About to Sleep": 0,
+      "At Risk": 0,
+      "Can't Lose Them": 2,
+      "Champions": 0,
+      "Hibernating / Lost": 4,
+      "Loyal Customers": 1,
+      "Need Attention": 7,
+      "New / Promising": 3,
+      "Potential Loyalists": 15,
+      "Standard Customers": 13
+    }
+  }
+}

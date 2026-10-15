@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # ──────────────────────────────────────────────────────────
+  # 1. RetailPulse Streamlit Executive Dashboard
+  # ──────────────────────────────────────────────────────────
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: retailpulse_dashboard
+    command: ["streamlit", "run", "app/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./reports:/app/reports
+    depends_on:
+      - api
+      - mlflow
+    restart: unless-stopped
+
+  # ──────────────────────────────────────────────────────────
+  # 2. FastAPI Real-Time Serving Layer
+  # ──────────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: retailpulse_api
+    command: ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./reports:/app/reports
+    restart: unless-stopped
+
+  # ──────────────────────────────────────────────────────────
+  # 3. MLflow Central Experiment Tracking & Registry
+  # ──────────────────────────────────────────────────────────
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    container_name: retailpulse_mlflow
+    command: mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root /mlflow/artifacts --host 0.0.0.0 --port 5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlflow/artifacts
+      - ./mlflow.db:/mlflow.db
+    restart: unless-stopped
+
+  # ──────────────────────────────────────────────────────────
+  # 4. Apache Airflow Standalone Scheduler & Webserver
+  # ──────────────────────────────────────────────────────────
+  airflow:
+    image: apache/airflow:2.8.1-python3.11
+    container_name: retailpulse_airflow
+    command: airflow standalone
+    ports:
+      - "8080:8080"
+    environment:
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/pipelines
+      - PYTHONPATH=/opt/airflow
+    volumes:
+      - ./pipelines:/opt/airflow/pipelines
+      - ./src:/opt/airflow/src
+      - ./scripts:/opt/airflow/scripts
+      - ./data:/opt/airflow/data
+      - ./models:/opt/airflow/models
+      - ./config.yaml:/opt/airflow/config.yaml
+    restart: unless-stopped
+
+networks:
+  default:
+    name: retailpulse_network

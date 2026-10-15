@@ -1,0 +1,7 @@
+{
+  "model": "LSTM_SequenceModel",
+  "mae": 12933.4,
+  "rmse": 22661.22,
+  "mape_pct": 31.62,
+  "smape_pct": 49.39
+}

@@ -1,0 +1,57 @@
+{
+  "drift_detected": true,
+  "drift_share_pct": 37.5,
+  "drifted_features": [
+    "Monetary",
+    "AvgOrderValue",
+    "AvgBasketSize"
+  ],
+  "forecast_health": {
+    "status": "HEALTHY",
+    "retrain_recommended": false,
+    "metrics": {
+      "mae": {
+        "baseline": 12675.17,
+        "current": 12312.48,
+        "relative_change_pct": -2.86,
+        "threshold_pct": 15.0,
+        "degraded": false
+      },
+      "rmse": {
+        "baseline": 21553.1,
+        "current": 21640.58,
+        "relative_change_pct": 0.41,
+        "threshold_pct": 15.0,
+        "degraded": false
+      },
+      "smape_pct": {
+        "baseline": 52.64,
+        "current": 52.17,
+        "relative_change_pct": -0.89,
+        "threshold_pct": 15.0,
+        "degraded": false
+      }
+    }
+  },
+  "churn_health": {
+    "status": "HEALTHY",
+    "retrain_recommended": false,
+    "metrics": {
+      "roc_auc": {
+        "baseline": 0.7879,
+        "current": 0.8013,
+        "relative_drop_pct": -1.7,
+        "threshold_pct": 10.0,
+        "degraded": false
+      },
+      "f1_score": {
+        "baseline": 0.772,
+        "current": 0.767,
+        "relative_drop_pct": 0.65,
+        "threshold_pct": 10.0,
+        "degraded": false
+      }
+    }
+  },
+  "retrain_required": true
+}

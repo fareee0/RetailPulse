@@ -1,0 +1,7 @@
+{
+  "model": "Prophet",
+  "mae": 12675.17,
+  "rmse": 21553.1,
+  "mape_pct": 29.64,
+  "smape_pct": 52.64
+}
