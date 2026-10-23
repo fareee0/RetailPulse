@@ -1,0 +1,37 @@
+{
+  "platform_version": "1.0.0",
+  "generated_at": "2026-10-23T20:17:13.684676",
+  "models": [
+    {
+      "model_id": "MOD-CHURN-001",
+      "name": "Customer Churn Predictor",
+      "algorithm": "Gradient Boosted Trees",
+      "type": "Classification",
+      "status": "Production",
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "roc_auc": 1.0,
+      "artifact": "models/churn_champion_pipeline.joblib"
+    },
+    {
+      "model_id": "MOD-CLUST-002",
+      "name": "RFM Customer Segmentation Engine",
+      "algorithm": "K-Means (k=3) + PCA",
+      "type": "Unsupervised Clustering",
+      "status": "Production",
+      "silhouette_score": 0.3785,
+      "clusters": 3,
+      "artifact": "models/clustering_pipeline.joblib"
+    },
+    {
+      "model_id": "MOD-FCST-003",
+      "name": "AI Demand & Revenue Forecaster",
+      "algorithm": "Holt-Winters Exponential Smoothing",
+      "type": "Time Series Forecasting",
+      "status": "Production",
+      "mae_inr": 237928.76,
+      "mape_pct": 8.92,
+      "artifact": "models/forecast_model.joblib"
+    }
+  ]
+}

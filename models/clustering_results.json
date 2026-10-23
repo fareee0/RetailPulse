@@ -1,0 +1,58 @@
+{
+  "optimal_k": 3,
+  "silhouette_scores": {
+    "3": 0.3785,
+    "4": 0.3269,
+    "5": 0.3645,
+    "6": 0.3274
+  },
+  "pca_explained_variance": [
+    0.6113,
+    0.2143
+  ],
+  "cluster_profiles": [
+    {
+      "cluster_id": 0,
+      "persona": "High-Value Champions",
+      "count": 343,
+      "pct_of_total": 18.5,
+      "avg_recency_days": 467.0,
+      "avg_frequency_orders": 3.5,
+      "avg_monetary_inr": 13472.2,
+      "avg_order_value_inr": 1882.3,
+      "churn_rate_pct": 100.0,
+      "loyalty_pct": 34.7
+    },
+    {
+      "cluster_id": 1,
+      "persona": "Loyal Regulars",
+      "count": 1161,
+      "pct_of_total": 62.7,
+      "avg_recency_days": 78.9,
+      "avg_frequency_orders": 7.0,
+      "avg_monetary_inr": 24545.01,
+      "avg_order_value_inr": 1650.52,
+      "churn_rate_pct": 32.5,
+      "loyalty_pct": 31.3
+    },
+    {
+      "cluster_id": 2,
+      "persona": "At-Risk Customers",
+      "count": 349,
+      "pct_of_total": 18.8,
+      "avg_recency_days": 41.6,
+      "avg_frequency_orders": 23.4,
+      "avg_monetary_inr": 91641.42,
+      "avg_order_value_inr": 1831.51,
+      "churn_rate_pct": 10.3,
+      "loyalty_pct": 41.8
+    }
+  ],
+  "features": [
+    "Recency",
+    "Frequency",
+    "Monetary",
+    "AvgOrderValue",
+    "TotalItems"
+  ]
+}

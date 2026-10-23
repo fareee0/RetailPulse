@@ -1,0 +1,456 @@
+{
+  "model_name": "Holt-Winters Additive (scipy-free)",
+  "metrics": {
+    "mae_inr": 237928.76,
+    "mape_pct": 8.92,
+    "r2_approx": 0.87
+  },
+  "timeline": [
+    {
+      "date": "2024-01-01",
+      "month": "Jan 2024",
+      "type": "Actual",
+      "revenue": 1517888.1,
+      "lower_ci": 1517888.1,
+      "upper_ci": 1517888.1
+    },
+    {
+      "date": "2024-02-01",
+      "month": "Feb 2024",
+      "type": "Actual",
+      "revenue": 1920228.15,
+      "lower_ci": 1920228.15,
+      "upper_ci": 1920228.15
+    },
+    {
+      "date": "2024-03-01",
+      "month": "Mar 2024",
+      "type": "Actual",
+      "revenue": 1998888.25,
+      "lower_ci": 1998888.25,
+      "upper_ci": 1998888.25
+    },
+    {
+      "date": "2024-04-01",
+      "month": "Apr 2024",
+      "type": "Actual",
+      "revenue": 1842846.7,
+      "lower_ci": 1842846.7,
+      "upper_ci": 1842846.7
+    },
+    {
+      "date": "2024-05-01",
+      "month": "May 2024",
+      "type": "Actual",
+      "revenue": 1940000.05,
+      "lower_ci": 1940000.05,
+      "upper_ci": 1940000.05
+    },
+    {
+      "date": "2024-06-01",
+      "month": "Jun 2024",
+      "type": "Actual",
+      "revenue": 1774033.1,
+      "lower_ci": 1774033.1,
+      "upper_ci": 1774033.1
+    },
+    {
+      "date": "2024-07-01",
+      "month": "Jul 2024",
+      "type": "Actual",
+      "revenue": 2003837.15,
+      "lower_ci": 2003837.15,
+      "upper_ci": 2003837.15
+    },
+    {
+      "date": "2024-08-01",
+      "month": "Aug 2024",
+      "type": "Actual",
+      "revenue": 2341992.15,
+      "lower_ci": 2341992.15,
+      "upper_ci": 2341992.15
+    },
+    {
+      "date": "2024-09-01",
+      "month": "Sep 2024",
+      "type": "Actual",
+      "revenue": 2361708.9,
+      "lower_ci": 2361708.9,
+      "upper_ci": 2361708.9
+    },
+    {
+      "date": "2024-10-01",
+      "month": "Oct 2024",
+      "type": "Actual",
+      "revenue": 3791851.2,
+      "lower_ci": 3791851.2,
+      "upper_ci": 3791851.2
+    },
+    {
+      "date": "2024-11-01",
+      "month": "Nov 2024",
+      "type": "Actual",
+      "revenue": 3852247.6,
+      "lower_ci": 3852247.6,
+      "upper_ci": 3852247.6
+    },
+    {
+      "date": "2024-12-01",
+      "month": "Dec 2024",
+      "type": "Actual",
+      "revenue": 2885074.45,
+      "lower_ci": 2885074.45,
+      "upper_ci": 2885074.45
+    },
+    {
+      "date": "2025-01-01",
+      "month": "Jan 2025",
+      "type": "Actual",
+      "revenue": 2399887.5,
+      "lower_ci": 2399887.5,
+      "upper_ci": 2399887.5
+    },
+    {
+      "date": "2025-02-01",
+      "month": "Feb 2025",
+      "type": "Actual",
+      "revenue": 2377808.3,
+      "lower_ci": 2377808.3,
+      "upper_ci": 2377808.3
+    },
+    {
+      "date": "2025-03-01",
+      "month": "Mar 2025",
+      "type": "Actual",
+      "revenue": 2590642.34,
+      "lower_ci": 2590642.34,
+      "upper_ci": 2590642.34
+    },
+    {
+      "date": "2025-04-01",
+      "month": "Apr 2025",
+      "type": "Actual",
+      "revenue": 2396560.91,
+      "lower_ci": 2396560.91,
+      "upper_ci": 2396560.91
+    },
+    {
+      "date": "2025-05-01",
+      "month": "May 2025",
+      "type": "Actual",
+      "revenue": 2815744.72,
+      "lower_ci": 2815744.72,
+      "upper_ci": 2815744.72
+    },
+    {
+      "date": "2025-06-01",
+      "month": "Jun 2025",
+      "type": "Actual",
+      "revenue": 2747548.29,
+      "lower_ci": 2747548.29,
+      "upper_ci": 2747548.29
+    },
+    {
+      "date": "2025-07-01",
+      "month": "Jul 2025",
+      "type": "Actual",
+      "revenue": 2317586.13,
+      "lower_ci": 2317586.13,
+      "upper_ci": 2317586.13
+    },
+    {
+      "date": "2025-08-01",
+      "month": "Aug 2025",
+      "type": "Actual",
+      "revenue": 3145214.61,
+      "lower_ci": 3145214.61,
+      "upper_ci": 3145214.61
+    },
+    {
+      "date": "2025-09-01",
+      "month": "Sep 2025",
+      "type": "Actual",
+      "revenue": 3230152.79,
+      "lower_ci": 3230152.79,
+      "upper_ci": 3230152.79
+    },
+    {
+      "date": "2025-10-01",
+      "month": "Oct 2025",
+      "type": "Actual",
+      "revenue": 5029496.17,
+      "lower_ci": 5029496.17,
+      "upper_ci": 5029496.17
+    },
+    {
+      "date": "2025-11-01",
+      "month": "Nov 2025",
+      "type": "Actual",
+      "revenue": 4601450.24,
+      "lower_ci": 4601450.24,
+      "upper_ci": 4601450.24
+    },
+    {
+      "date": "2025-12-01",
+      "month": "Dec 2025",
+      "type": "Actual",
+      "revenue": 3217890.57,
+      "lower_ci": 3217890.57,
+      "upper_ci": 3217890.57
+    },
+    {
+      "date": "2026-01-01",
+      "month": "Jan 2026",
+      "type": "Forecast",
+      "revenue": 2512413.02,
+      "lower_ci": 1952804.58,
+      "upper_ci": 3072021.45
+    },
+    {
+      "date": "2026-02-01",
+      "month": "Feb 2026",
+      "type": "Forecast",
+      "revenue": 2860690.7,
+      "lower_ci": 2301082.27,
+      "upper_ci": 3420299.14
+    },
+    {
+      "date": "2026-03-01",
+      "month": "Mar 2026",
+      "type": "Forecast",
+      "revenue": 2983814.34,
+      "lower_ci": 2424205.91,
+      "upper_ci": 3543422.77
+    },
+    {
+      "date": "2026-04-01",
+      "month": "Apr 2026",
+      "type": "Forecast",
+      "revenue": 2847419.33,
+      "lower_ci": 2287810.9,
+      "upper_ci": 3407027.77
+    },
+    {
+      "date": "2026-05-01",
+      "month": "May 2026",
+      "type": "Forecast",
+      "revenue": 3017900.49,
+      "lower_ci": 2458292.05,
+      "upper_ci": 3577508.92
+    },
+    {
+      "date": "2026-06-01",
+      "month": "Jun 2026",
+      "type": "Forecast",
+      "revenue": 2885992.72,
+      "lower_ci": 2326384.29,
+      "upper_ci": 3445601.15
+    },
+    {
+      "date": "2026-07-01",
+      "month": "Jul 2026",
+      "type": "Forecast",
+      "revenue": 3048546.62,
+      "lower_ci": 2488938.19,
+      "upper_ci": 3608155.05
+    },
+    {
+      "date": "2026-08-01",
+      "month": "Aug 2026",
+      "type": "Forecast",
+      "revenue": 3503040.02,
+      "lower_ci": 2943431.59,
+      "upper_ci": 4062648.45
+    },
+    {
+      "date": "2026-09-01",
+      "month": "Sep 2026",
+      "type": "Forecast",
+      "revenue": 3562844.98,
+      "lower_ci": 3003236.55,
+      "upper_ci": 4122453.42
+    },
+    {
+      "date": "2026-10-01",
+      "month": "Oct 2026",
+      "type": "Forecast",
+      "revenue": 5074200.46,
+      "lower_ci": 4514592.03,
+      "upper_ci": 5633808.9
+    },
+    {
+      "date": "2026-11-01",
+      "month": "Nov 2026",
+      "type": "Forecast",
+      "revenue": 5089010.57,
+      "lower_ci": 4529402.14,
+      "upper_ci": 5648619.01
+    },
+    {
+      "date": "2026-12-01",
+      "month": "Dec 2026",
+      "type": "Forecast",
+      "revenue": 4108370.44,
+      "lower_ci": 3548762.0,
+      "upper_ci": 4667978.87
+    }
+  ],
+  "category_forecasts": {
+    "Home & Kitchen": [
+      {
+        "month": "Jan 2026",
+        "forecast_revenue": 242147.71
+      },
+      {
+        "month": "Feb 2026",
+        "forecast_revenue": 251588.18
+      },
+      {
+        "month": "Mar 2026",
+        "forecast_revenue": 273941.52
+      },
+      {
+        "month": "Apr 2026",
+        "forecast_revenue": 340775.51
+      },
+      {
+        "month": "May 2026",
+        "forecast_revenue": 357175.93
+      },
+      {
+        "month": "Jun 2026",
+        "forecast_revenue": 273368.82
+      }
+    ],
+    "Personal Care": [
+      {
+        "month": "Jan 2026",
+        "forecast_revenue": 141634.72
+      },
+      {
+        "month": "Feb 2026",
+        "forecast_revenue": 157304.96
+      },
+      {
+        "month": "Mar 2026",
+        "forecast_revenue": 175087.12
+      },
+      {
+        "month": "Apr 2026",
+        "forecast_revenue": 175585.83
+      },
+      {
+        "month": "May 2026",
+        "forecast_revenue": 165127.05
+      },
+      {
+        "month": "Jun 2026",
+        "forecast_revenue": 171903.71
+      }
+    ],
+    "Beverages": [
+      {
+        "month": "Jan 2026",
+        "forecast_revenue": 126066.85
+      },
+      {
+        "month": "Feb 2026",
+        "forecast_revenue": 112553.23
+      },
+      {
+        "month": "Mar 2026",
+        "forecast_revenue": 124718.44
+      },
+      {
+        "month": "Apr 2026",
+        "forecast_revenue": 188413.82
+      },
+      {
+        "month": "May 2026",
+        "forecast_revenue": 179200.62
+      },
+      {
+        "month": "Jun 2026",
+        "forecast_revenue": 163699.18
+      }
+    ],
+    "Grocery & Staples": [
+      {
+        "month": "Jan 2026",
+        "forecast_revenue": 224458.6
+      },
+      {
+        "month": "Feb 2026",
+        "forecast_revenue": 285789.71
+      },
+      {
+        "month": "Mar 2026",
+        "forecast_revenue": 289465.67
+      },
+      {
+        "month": "Apr 2026",
+        "forecast_revenue": 289045.55
+      },
+      {
+        "month": "May 2026",
+        "forecast_revenue": 289427.5
+      },
+      {
+        "month": "Jun 2026",
+        "forecast_revenue": 274893.96
+      }
+    ],
+    "Apparel": [
+      {
+        "month": "Jan 2026",
+        "forecast_revenue": 537028.83
+      },
+      {
+        "month": "Feb 2026",
+        "forecast_revenue": 570534.85
+      },
+      {
+        "month": "Mar 2026",
+        "forecast_revenue": 534446.5
+      },
+      {
+        "month": "Apr 2026",
+        "forecast_revenue": 548808.85
+      },
+      {
+        "month": "May 2026",
+        "forecast_revenue": 520328.19
+      },
+      {
+        "month": "Jun 2026",
+        "forecast_revenue": 509331.94
+      }
+    ],
+    "Electronics": [
+      {
+        "month": "Jan 2026",
+        "forecast_revenue": 1213106.8
+      },
+      {
+        "month": "Feb 2026",
+        "forecast_revenue": 1438435.39
+      },
+      {
+        "month": "Mar 2026",
+        "forecast_revenue": 1535736.28
+      },
+      {
+        "month": "Apr 2026",
+        "forecast_revenue": 1247237.69
+      },
+      {
+        "month": "May 2026",
+        "forecast_revenue": 1445270.86
+      },
+      {
+        "month": "Jun 2026",
+        "forecast_revenue": 1423931.46
+      }
+    ]
+  }
+}

@@ -6,6 +6,7 @@ Streamlit Dashboard  |  Production-Ready
 import os
 import json
 import warnings
+import joblib
 warnings.filterwarnings("ignore")
 
 import numpy as np
@@ -248,6 +249,17 @@ def apply_template(fig):
 
 def _empty_msg(msg="No data available yet — run the training pipeline first."):
     st.info(f"ℹ️  {msg}", icon="📊")
+
+@st.cache_resource(show_spinner=False)
+def load_model(fname):
+    """Load a joblib model from the models directory with caching."""
+    path = os.path.join(MODELS, fname)
+    if os.path.exists(path):
+        try:
+            return joblib.load(path)
+        except Exception:
+            return None
+    return None
 
 
 # ──────────────────────────────────────────────
@@ -913,23 +925,48 @@ elif "Churn" in page:
             channel   = st.selectbox("🛒 Preferred Channel", ["Online","Offline","Both"], key="sim_channel")
 
         with col_r:
-            # Simple rule-based scoring (works without trained model artifact)
+            # ── ML-powered churn prediction ───────────────────────────
             loy_val = 1 if "Yes" in loyalty else 0
-            score   = 0.0
-            # Recency penalty
-            if recency > 180: score += 0.35
-            elif recency > 90: score += 0.18
-            elif recency > 45: score += 0.07
-            # Low frequency
-            if frequency < 3: score += 0.20
-            elif frequency < 6: score += 0.08
-            # Monetary bracket
-            if monetary < 5000: score += 0.12
-            elif monetary > 50000: score -= 0.10
-            # Loyalty bonus
-            if loy_val: score -= 0.12
-            # Cap
-            churn_prob = max(0.03, min(0.97, score + 0.15))
+            gender_val = gender
+            age_group_map = {"18-25": "18-24", "26-35": "25-34", "36-45": "35-44", "46-55": "45-54", "55+": "55+"}
+            age_group_val = age_group_map.get(age_group, age_group)
+            channel_val = channel
+
+            champion_pipeline = load_model("churn_champion_pipeline.joblib")
+            churn_prob = None
+            model_used = "Rule-Based"
+
+            if champion_pipeline is not None:
+                try:
+                    input_df = pd.DataFrame([{
+                        "Recency": recency,
+                        "Frequency": frequency,
+                        "Monetary": float(monetary),
+                        "AvgOrderValue": float(aov),
+                        "TotalItems": total_items,
+                        "LoyaltyMember": loy_val,
+                        "Gender": gender_val,
+                        "AgeGroup": age_group_val,
+                        "PreferredChannel": channel_val
+                    }])
+                    churn_prob = float(champion_pipeline.predict_proba(input_df)[0, 1])
+                    model_used = churn_res.get("champion_model", "ML Model")
+                except Exception as e:
+                    churn_prob = None  # fallback to heuristic
+
+            if churn_prob is None:
+                # Heuristic fallback (no model loaded)
+                score = 0.0
+                if recency > 180: score += 0.35
+                elif recency > 90: score += 0.18
+                elif recency > 45: score += 0.07
+                if frequency < 3: score += 0.20
+                elif frequency < 6: score += 0.08
+                if monetary < 5000: score += 0.12
+                elif monetary > 50000: score -= 0.10
+                if loy_val: score -= 0.12
+                churn_prob = max(0.03, min(0.97, score + 0.15))
+                model_used = "Heuristic (model unavailable)"
 
             risk_label = "🔴 HIGH RISK" if churn_prob > 0.6 else ("🟡 MEDIUM RISK" if churn_prob > 0.35 else "🟢 LOW RISK")
             risk_color = "#fc8181" if churn_prob > 0.6 else ("#f6ad55" if churn_prob > 0.35 else "#68d391")
@@ -939,6 +976,7 @@ elif "Churn" in page:
                 <div style="font-size:0.8rem; color:#94a3b8; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.5rem;">CHURN PROBABILITY</div>
                 <div style="font-size:3.5rem; font-weight:800; color:{risk_color}; line-height:1.1;">{churn_prob*100:.1f}%</div>
                 <div style="font-size:1.1rem; font-weight:700; color:{risk_color}; margin-top:0.4rem;">{risk_label}</div>
+                <div style="font-size:0.72rem; color:#475569; margin-top:0.3rem;">via {model_used}</div>
                 <hr style="border-color: rgba(255,255,255,0.08); margin: 1rem 0;">
             </div>
             """, unsafe_allow_html=True)
@@ -967,14 +1005,16 @@ elif "Churn" in page:
             )
             st.plotly_chart(fig_gauge, use_container_width=True)
 
-            # Recommendations
+            # Retention recommendations based on risk factors
             recs = []
-            if recency > 90: recs.append("📧 Send a re-engagement email campaign")
-            if frequency < 5: recs.append("🎁 Offer loyalty reward for next purchase")
-            if not loy_val:   recs.append("⭐ Invite to join loyalty program")
-            if monetary < 10000: recs.append("💰 Provide discount on next high-value order")
+            if recency > 90:   recs.append("📧 Send a personalized re-engagement email campaign")
+            if frequency < 5:  recs.append("🎁 Offer loyalty reward for next purchase")
+            if not loy_val:    recs.append("⭐ Invite customer to join the loyalty program")
+            if monetary < 10000: recs.append("💰 Provide a targeted discount on next high-value order")
+            if aov < 1500:     recs.append("📦 Recommend product bundles to increase basket size")
+            if churn_prob > 0.6: recs.append("🚨 Escalate to VIP retention team immediately")
             if recs:
-                st.markdown("**💡 Retention Recommendations:**")
+                st.markdown("**💡 AI Retention Recommendations:**")
                 for r in recs:
                     st.markdown(f"- {r}")
 

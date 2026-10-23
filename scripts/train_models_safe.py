@@ -48,7 +48,8 @@ def roc_auc(y_true, y_score):
     fpr = fp_cumsum / n_neg
     tpr = np.concatenate([[0], tpr, [1]])
     fpr = np.concatenate([[0], fpr, [1]])
-    return float(np.trapz(tpr, fpr))
+    trapz_fn = getattr(np, 'trapezoid', getattr(np, 'trapz', None))
+    return float(trapz_fn(tpr, fpr))
 
 def confusion_matrix_2x2(y_true, y_pred):
     y_true, y_pred = np.array(y_true), np.array(y_pred)
