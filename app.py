@@ -261,6 +261,46 @@ def load_model(fname):
             return None
     return None
 
+@st.cache_resource(show_spinner=False)
+def load_xgb_churn_model():
+    """
+    Load the XGBoost churn model (churn_champion.xgb) plus the pipeline
+    metadata dict (scaler stats, feature names) from churn_champion_pipeline.joblib.
+    Returns (booster, pipeline_dict) or (None, None).
+    """
+    try:
+        import xgboost as xgb
+        model_path = os.path.join(MODELS, "churn_champion.xgb")
+        pipeline_path = os.path.join(MODELS, "churn_champion_pipeline.joblib")
+        if not os.path.exists(model_path):
+            return None, None
+        bst = xgb.Booster()
+        bst.load_model(model_path)
+        pipeline_dict = None
+        if os.path.exists(pipeline_path):
+            import pickle
+            # Load raw bytes and unpickle with a forgiving class resolver
+            class _FakeSimpleScaler:
+                pass
+            import sys, types
+            # Create a fake module so pickle can resolve SimpleScaler
+            fake_mod = types.ModuleType('__main__')
+            fake_mod.SimpleScaler = _FakeSimpleScaler
+            fake_mod.SimplePCA = _FakeSimpleScaler
+            fake_mod.SimpleHoltWinters = _FakeSimpleScaler
+            orig_main = sys.modules.get('__main__')
+            sys.modules['__main__'] = fake_mod
+            try:
+                pipeline_dict = joblib.load(pipeline_path)
+            except Exception:
+                pipeline_dict = None
+            finally:
+                if orig_main is not None:
+                    sys.modules['__main__'] = orig_main
+        return bst, pipeline_dict
+    except Exception:
+        return None, None
+
 
 # ──────────────────────────────────────────────
 # SIDEBAR
@@ -932,30 +972,59 @@ elif "Churn" in page:
             age_group_val = age_group_map.get(age_group, age_group)
             channel_val = channel
 
-            champion_pipeline = load_model("churn_champion_pipeline.joblib")
+            bst, pipeline_dict = load_xgb_churn_model()
             churn_prob = None
-            model_used = "Rule-Based"
+            model_used = "Heuristic"
 
-            if champion_pipeline is not None:
+            if bst is not None and pipeline_dict is not None:
                 try:
-                    input_df = pd.DataFrame([{
-                        "Recency": recency,
-                        "Frequency": frequency,
-                        "Monetary": float(monetary),
-                        "AvgOrderValue": float(aov),
-                        "TotalItems": total_items,
-                        "LoyaltyMember": loy_val,
-                        "Gender": gender_val,
-                        "AgeGroup": age_group_val,
-                        "PreferredChannel": channel_val
-                    }])
-                    churn_prob = float(champion_pipeline.predict_proba(input_df)[0, 1])
-                    model_used = churn_res.get("champion_model", "ML Model")
-                except Exception as e:
-                    churn_prob = None  # fallback to heuristic
+                    import xgboost as xgb
+                    num_feats = pipeline_dict.get('numeric_feats', ['Recency','Frequency','Monetary','AvgOrderValue','TotalItems','LoyaltyMember'])
+                    cat_feats = pipeline_dict.get('cat_feats', ['Gender','AgeGroup','PreferredChannel'])
+                    feat_names = pipeline_dict.get('feat_names', [])
+
+                    # Build input row matching training order
+                    input_vals = {
+                        'Recency': float(recency), 'Frequency': float(frequency),
+                        'Monetary': float(monetary), 'AvgOrderValue': float(aov),
+                        'TotalItems': float(total_items), 'LoyaltyMember': float(loy_val),
+                        'Gender': gender_val, 'AgeGroup': age_group_val, 'PreferredChannel': channel_val
+                    }
+                    input_df = pd.DataFrame([input_vals])
+
+                    # One-hot encode categoricals to match feat_names
+                    num_parts = []
+                    for col in num_feats:
+                        num_parts.append(input_df[col].values.astype(float))
+
+                    # Apply scaler if available
+                    scaler_obj = pipeline_dict.get('scaler')
+                    num_arr = np.column_stack(num_parts).astype(float)
+                    if hasattr(scaler_obj, 'mean_') and hasattr(scaler_obj, 'std_'):
+                        num_arr = (num_arr - scaler_obj.mean_) / (scaler_obj.std_ + 1e-9)
+
+                    # One-hot for cat features
+                    cat_parts = []
+                    for feat_name in feat_names[len(num_feats):]:
+                        # feat_name format: "ColName_value"
+                        if '_' in feat_name:
+                            col, val = feat_name.split('_', 1)
+                            cat_parts.append(np.array([1.0 if str(input_df[col].iloc[0]) == val else 0.0]))
+
+                    if cat_parts:
+                        full_arr = np.concatenate([num_arr.flatten(), np.array([p[0] for p in cat_parts])]).reshape(1, -1)
+                    else:
+                        full_arr = num_arr
+
+                    fnames = [f"f{i}" for i in range(full_arr.shape[1])]
+                    dm = xgb.DMatrix(full_arr, feature_names=fnames)
+                    churn_prob = float(bst.predict(dm)[0])
+                    model_used = churn_res.get("champion_model", "XGBoost")
+                except Exception:
+                    churn_prob = None
 
             if churn_prob is None:
-                # Heuristic fallback (no model loaded)
+                # Heuristic fallback
                 score = 0.0
                 if recency > 180: score += 0.35
                 elif recency > 90: score += 0.18
