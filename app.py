@@ -907,7 +907,10 @@ elif "Churn" in page:
             # Highlight champion
             def highlight_champ(row):
                 return ["background-color: rgba(99,179,237,0.15)" if row["Model"] == champion else "" for _ in row]
-            st.dataframe(lb_df.style.apply(highlight_champ, axis=1), use_container_width=True, height=200)
+            try:
+                st.dataframe(lb_df.style.apply(highlight_champ, axis=1), use_container_width=True, height=200)
+            except Exception:
+                st.dataframe(lb_df, use_container_width=True, height=200)
 
             # Bar chart comparison
             metrics_to_plot = ["accuracy","precision","recall","f1_score","roc_auc"]
@@ -1165,10 +1168,16 @@ elif "Inventory" in page:
 
             st.markdown(f"**{len(df_urgent)} items need immediate attention:**")
             if "CalculatedStatus" in df_urgent.columns:
-                st.dataframe(
-                    df_urgent[disp_cols].style.applymap(color_status, subset=["CalculatedStatus"]),
-                    use_container_width=True, height=450
-                )
+                try:
+                    styler = df_urgent[disp_cols].style
+                    style_fn = getattr(styler, "map", getattr(styler, "applymap", None))
+                    if callable(style_fn):
+                        styled_df = style_fn(color_status, subset=["CalculatedStatus"])
+                        st.dataframe(styled_df, use_container_width=True, height=450)
+                    else:
+                        st.dataframe(df_urgent[disp_cols], use_container_width=True, height=450)
+                except Exception:
+                    st.dataframe(df_urgent[disp_cols], use_container_width=True, height=450)
             else:
                 st.dataframe(df_urgent[disp_cols], use_container_width=True, height=450)
 
